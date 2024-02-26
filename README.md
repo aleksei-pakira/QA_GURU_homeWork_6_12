@@ -1,0 +1,1 @@
+# QA_GURU_homeWork_6_12
