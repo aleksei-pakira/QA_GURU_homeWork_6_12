@@ -8,15 +8,15 @@ def test_dark_theme_by_time():
     current_time = time(hour=23)
     # TODO переключите темную тему в зависимости от времени суток (с 22 до 6 часов утра - ночь)
 
+
+    current_time = time(hour=23)
+
+
+    if time(hour=6) < current_time < time(hour=22):
+        is_dark_theme = False
+    else:
+        is_dark_theme = True
     assert is_dark_theme is True
-
-current_time = time(hour=23)
-
-if time(hour=6) < current_time < time(hour=22):
-    is_dark_theme = False
-else:
-    is_dark_theme = True
-assert is_dark_theme is True
 
 
 
@@ -28,26 +28,25 @@ def test_dark_theme_by_time_and_user_choice():
     dark_theme_enabled_by_user = False - Темная тема выключена
     dark_theme_enabled_by_user = None - Пользователь не сделал выбор (используется переключение по времени системы)
     """
-    current_time = time(hour=16)
-    dark_theme_enabled_by_user = True
+
     # TODO переключите темную тему в зависимости от времени суток,
     #  но учтите что темная тема может быть включена вручную
 
 
-current_time = time(hour=16)
-dark_theme_enabled_by_user = True
+    current_time = time(hour=16)
+    dark_theme_enabled_by_user = True
 
 
-if dark_theme_enabled_by_user:
-    is_dark_theme = True
-elif dark_theme_enabled_by_user is None:
-    if time(hour=6) < current_time < time(hour=22):
-        is_dark_theme = False
-    else:
+    if dark_theme_enabled_by_user:
         is_dark_theme = True
-else:
-    is_dark_theme = False
-assert is_dark_theme is True
+    elif dark_theme_enabled_by_user is None:
+        if time(hour=6) < current_time < time(hour=22):
+            is_dark_theme = False
+        else:
+            is_dark_theme = True
+    else:
+        is_dark_theme = False
+    assert is_dark_theme is True
 
 
 
@@ -68,35 +67,20 @@ def test_find_suitable_user():
 
     # TODO найдите всех пользователей младше 20 лет
 
+    suitable_users = {}
+    for user_from_list in users:
+        if user_from_list["name"] == "Olga":
+            suitable_users = user_from_list
+    assert suitable_users == {"name": "Olga", "age": 45}
+
+    suitable_users = []
+    for user_from_list in users:
+        if user_from_list["age"] < 20:
+            suitable_users.append(user_from_list)
     assert suitable_users == [
         {"name": "Stanislav", "age": 15},
         {"name": "Maria", "age": 18},
     ]
-
-
-users = [
-        {"name": "Oleg", "age": 32},
-        {"name": "Sergey", "age": 24},
-        {"name": "Stanislav", "age": 15},
-        {"name": "Olga", "age": 45},
-        {"name": "Maria", "age": 18},
-    ]
-
-suitable_users = {}
-for user_from_list in users:
-    if user_from_list["name"] == "Olga":
-        suitable_users = user_from_list
-assert suitable_users == {"name": "Olga", "age": 45}
-
-
-suitable_users = []
-for user_from_list in users:
-    if user_from_list["age"] < 20:
-        suitable_users.append(user_from_list)
-assert suitable_users == [
-    {"name": "Stanislav", "age": 15},
-    {"name": "Maria", "age": 18},
-]
 
 
 def print_function_name_and_args(func, *args):
